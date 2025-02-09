@@ -59,21 +59,24 @@ namespace TypingTest
 
         private void txtInput_TextChanged_TextChanged(object sender, EventArgs e)
         {
-            // cheking if the word use wrote is same with the word in the 1st word in the label
-            string[] inputWords = txtInput_TextChanged.Text.Split(' ');
+            // checking if the word user wrote is same with the word in the 1st word in the label
+            string inputWords = txtInput_TextChanged.Text;
             string[] labelWords = label1.Text.Split(' ');
-            for (int i = 0; i < inputWords.Length; i++)
-            {
-                if (inputWords[i] == labelWords[i])
-                {
-                    txtInput_TextChanged.BackColor = Color.Green;
-                }
-                else
-                {
-                    txtInput_TextChanged.BackColor = Color.Red;
-                }
-            }
 
+            if (inputWords == labelWords[0])
+            {
+                txtInput_TextChanged.BackColor = Color.Green;
+                // if the word is correct, then we will remove the word from the label, add a new word to the label from randomwords, and clear the textbox
+                labelWords = labelWords.Skip(1).ToArray();
+                
+                string randomWord = GetRandomWords(1)[0];
+                label1.Text = string.Join(" ", labelWords) + " " + randomWord;
+                txtInput_TextChanged.Text = "";
+            }
+            else
+            {
+                txtInput_TextChanged.BackColor = Color.Red;
+            }
         }
     }
 }
