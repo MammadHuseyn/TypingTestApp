@@ -47,10 +47,12 @@
             // txtInput_TextChanged
             // 
             txtInput_TextChanged.AccessibleName = "txtInput_TextChanged";
+            txtInput_TextChanged.BackColor = SystemColors.InactiveBorder;
             txtInput_TextChanged.Location = new Point(356, 214);
             txtInput_TextChanged.Name = "txtInput_TextChanged";
             txtInput_TextChanged.Size = new Size(673, 31);
             txtInput_TextChanged.TabIndex = 1;
+            txtInput_TextChanged.TextChanged += txtInput_TextChanged_TextChanged;
             // 
             // label1
             // 
