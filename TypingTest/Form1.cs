@@ -78,7 +78,7 @@ namespace TypingTest
             if (isCorrect)
             {
                 txtInput_TextChanged.BackColor = Color.Green;
-                
+                // fucking hell
                 // if the word is correct, then we will remove the word from the label, add a new word to the label from randomwords, and clear the textbox
                 if ((inputWords == labelWords[0]))
                 {
