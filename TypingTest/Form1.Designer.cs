@@ -40,7 +40,7 @@
             btnStart_Click.Name = "btnStart_Click";
             btnStart_Click.Size = new Size(112, 34);
             btnStart_Click.TabIndex = 0;
-            btnStart_Click.Text = "button1";
+            btnStart_Click.Text = "Start";
             btnStart_Click.UseVisualStyleBackColor = true;
             btnStart_Click.Click += button1_Click;
             // 
@@ -48,7 +48,7 @@
             // 
             txtInput_TextChanged.AccessibleName = "txtInput_TextChanged";
             txtInput_TextChanged.BackColor = SystemColors.InactiveBorder;
-            txtInput_TextChanged.Location = new Point(356, 214);
+            txtInput_TextChanged.Location = new Point(346, 317);
             txtInput_TextChanged.Name = "txtInput_TextChanged";
             txtInput_TextChanged.Size = new Size(673, 31);
             txtInput_TextChanged.TabIndex = 1;
@@ -56,12 +56,15 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Location = new Point(275, 82);
+            label1.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(447, 231);
             label1.Name = "label1";
-            label1.Size = new Size(59, 25);
+            label1.Size = new Size(102, 41);
             label1.TabIndex = 2;
-            label1.Text = "label1";
+            label1.Text = "TEST";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click;
             // 
             // Form1
