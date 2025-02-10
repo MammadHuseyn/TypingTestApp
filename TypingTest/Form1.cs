@@ -34,6 +34,7 @@ namespace TypingTest
                     "find", "first", "follow", "food", "for",
                     "form", "found", "four", "from", "get",
                     "girl", "give" };
+        int count = 0;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -69,25 +70,41 @@ namespace TypingTest
         bool isCorrect = true;
         for (int i = 0; i < inputWords.Length; i++)
         {
-            if (i >= labelWords[0].Length || inputWords[i] != labelWords[0][i])
+            if (i >= labelWords[count].Length || inputWords[i] != labelWords[count][i])
             {
                 isCorrect = false;
                 break;
             }
         }
-
-        if (isCorrect)
+        if (count == 5)
+        {
+                count = 0;
+                List<string> randomWords = GetRandomWords(5);
+                label1.Text = string.Join(" ", randomWords);
+            }
+            if (isCorrect)
         {
             txtInput_TextChanged.BackColor = Color.Green;
 
             // if the word is correct, then we will remove the word from the label, add a new word to the label from randomwords, and clear the textbox
-            if ((inputWords == labelWords[0]))
+            if ((inputWords == labelWords[count]))
             {
-                labelWords = labelWords.Skip(1).ToArray();
-                string randomWord = GetRandomWords(1)[0];
-                label1.Text = string.Join(" ", labelWords) + " " + randomWord;
-                txtInput_TextChanged.Text = "";
-                txtInput_TextChanged.BackColor = Color.White;
+                if (count == 5)
+                {
+                    count = 0;
+                    List<string> randomWords = GetRandomWords(5);
+                    label1.Text = string.Join(" ", randomWords);
+                }
+                else { 
+                    count++;
+                    //labelWords = labelWords.Skip(1).ToArray();
+                    //string randomWord = GetRandomWords(1)[0];
+                    //label1.Text = string.Join(" ", labelWords) + " " + randomWord;
+                    txtInput_TextChanged.Text = "";
+                    txtInput_TextChanged.BackColor = Color.White;
+                        label1.Text += $"<span style='color:green'>{labelWords[count]}</span>";
+                }
+               
             }
         }
         else
@@ -106,8 +123,20 @@ namespace TypingTest
             {
                 i++;
             }
-            txtInput_TextChanged.SelectionStart = i;
-            txtInput_TextChanged.SelectionLength = input.Length - i;
+
+            // Create a new label with colored text
+            label1.Text = "";
+            for (int j = 0; j < label.Length; j++)
+            {
+                if (j < i)
+                {
+                    label1.Text += $"<span style='color:green'>{label[j]}</span>";
+                }
+                else
+                {
+                    label1.Text += $"<span style='color:black'>{label[j]}</span>";
+                }
+            }
         }
     }
 
