@@ -1,7 +1,7 @@
 using System.Diagnostics.Tracing;
 using System;
 using System.Windows.Forms;
-
+using System.Drawing;
 
 namespace TypingTest
 {
@@ -15,25 +15,25 @@ namespace TypingTest
         }
 
         string[] words = { "about", "above",
-                "add", "after", "again",
-                "air", "all", "almost", "along",
-                "also", "always", "America", "an",
-                "and", "animal", "another", "answer",
-                "any", "are", "around", "as", "ask",
-                "at", "away", "back", "be", "because",
-                "been", "before", "began", "begin",
-                "being", "below", "between", "big",
-                "book", "both", "boy", "but", "by",
-                "call", "came", "can", "car", "carry",
-                "change", "children", "city", "close",
-                "come", "could", "country", "cut", "day",
-                "did", "different", "do", "does", "don't",
-                "down", "each", "earth", "eat", "end", "enough",
-                "even", "every", "example", "eye", "face",
-                "family", "far", "father", "feet", "few",
-                "find", "first", "follow", "food", "for",
-                "form", "found", "four", "from", "get",
-                "girl", "give" };
+                    "add", "after", "again",
+                    "air", "all", "almost", "along",
+                    "also", "always", "America", "an",
+                    "and", "animal", "another", "answer",
+                    "any", "are", "around", "as", "ask",
+                    "at", "away", "back", "be", "because",
+                    "been", "before", "began", "begin",
+                    "being", "below", "between", "big",
+                    "book", "both", "boy", "but", "by",
+                    "call", "came", "can", "car", "carry",
+                    "change", "children", "city", "close",
+                    "come", "could", "country", "cut", "day",
+                    "did", "different", "do", "does", "don't",
+                    "down", "each", "earth", "eat", "end", "enough",
+                    "even", "every", "example", "eye", "face",
+                    "family", "far", "father", "feet", "few",
+                    "find", "first", "follow", "food", "for",
+                    "form", "found", "four", "from", "get",
+                    "girl", "give" };
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -57,43 +57,58 @@ namespace TypingTest
 
         }
 
-        private void txtInput_TextChanged_TextChanged(object sender, EventArgs e)
+
+    private void txtInput_TextChanged_TextChanged(object sender, EventArgs e)
+    {
+        // checking if the word user wrote is same with the word in the 1st word in the label
+
+        string inputWords = txtInput_TextChanged.Text;
+        string[] labelWords = label1.Text.Split(' ');
+
+        // Check each letter of the input word
+        bool isCorrect = true;
+        for (int i = 0; i < inputWords.Length; i++)
         {
-            // checking if the word user wrote is same with the word in the 1st word in the label
-
-            string inputWords = txtInput_TextChanged.Text;
-            string[] labelWords = label1.Text.Split(' ');
-
-            // Check each letter of the input word
-            bool isCorrect = true;
-            for (int i = 0; i < inputWords.Length; i++)
+            if (i >= labelWords[0].Length || inputWords[i] != labelWords[0][i])
             {
-                if (i >= labelWords[0].Length || inputWords[i] != labelWords[0][i])
-                {
-                    isCorrect = false;
-                    break;
-                }
-            }
-
-            if (isCorrect)
-            {
-                txtInput_TextChanged.BackColor = Color.Green;
-                // fucking hell
-                // if the word is correct, then we will remove the word from the label, add a new word to the label from randomwords, and clear the textbox
-                if ((inputWords == labelWords[0]))
-                {
-                    labelWords = labelWords.Skip(1).ToArray();
-                    string randomWord = GetRandomWords(1)[0];
-                    label1.Text = string.Join(" ", labelWords) + " " + randomWord;
-                    txtInput_TextChanged.Text = "";
-                    txtInput_TextChanged.BackColor = Color.White;
-                }
-            }
-            else
-            {
-                txtInput_TextChanged.BackColor = Color.Red;
+                isCorrect = false;
+                break;
             }
         }
 
+        if (isCorrect)
+        {
+            txtInput_TextChanged.BackColor = Color.Green;
+
+            // if the word is correct, then we will remove the word from the label, add a new word to the label from randomwords, and clear the textbox
+            if ((inputWords == labelWords[0]))
+            {
+                labelWords = labelWords.Skip(1).ToArray();
+                string randomWord = GetRandomWords(1)[0];
+                label1.Text = string.Join(" ", labelWords) + " " + randomWord;
+                txtInput_TextChanged.Text = "";
+                txtInput_TextChanged.BackColor = Color.White;
+            }
+        }
+        else
+        {
+            txtInput_TextChanged.BackColor = Color.Red;
+        }
+
+        //HighlightCorrectPart(inputWords, labelWords[0]);
     }
+
+
+        private void HighlightCorrectPart(string input, string label)
+        {
+            int i = 0;
+            while (i < input.Length && i < label.Length && input[i] == label[i])
+            {
+                i++;
+            }
+            txtInput_TextChanged.SelectionStart = i;
+            txtInput_TextChanged.SelectionLength = input.Length - i;
+        }
+    }
+
 }
